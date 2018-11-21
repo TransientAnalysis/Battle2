@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.StatusAssignmentController">
+   <children>
+      <ImageView fitHeight="480.0" fitWidth="640.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@backblack.png" />
+         </image>
+      </ImageView>
+      <Label alignment="CENTER" layoutX="214.0" layoutY="14.0" prefHeight="34.0" prefWidth="220.0" text="～ステータス振り分け～" textFill="WHITE">
+         <font>
+            <Font name="Meiryo Bold Italic" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="actorName" alignment="CENTER" layoutX="225.0" layoutY="43.0" prefHeight="29.0" prefWidth="199.0" text="ああああ" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="BP" layoutX="24.0" layoutY="43.0" prefHeight="29.0" prefWidth="220.0" text="残:" textFill="WHITE">
+         <font>
+            <Font name="Meiryo" size="14.0" />
+         </font>
+      </Label>
+      <Button disable="true" layoutX="513.0" layoutY="38.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="27.0" style="-fx-border-width: 3; -fx-border-color: white;" stylesheets="@button.css">
+         <graphic>
+            <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@leftarrow.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </ImageView>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button disable="true" layoutX="563.0" layoutY="38.0" mnemonicParsing="false" style="-fx-border-width: 3; -fx-border-color: white;" stylesheets="@button.css">
+         <graphic>
+            <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@rightarrow.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </ImageView>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <HBox layoutX="24.0" layoutY="83.0" prefHeight="300.0" prefWidth="600.0" style="-fx-border-width: 1; -fx-border-color: white;">
+         <children>
+            <VBox prefHeight="300.0" prefWidth="300.0" style="-fx-border-image-width: 1; -fx-border-color: white;">
+               <children>
+                  <AnchorPane prefHeight="100.0" prefWidth="297.0">
+                     <children>
+                        <Label alignment="CENTER" layoutX="113.0" layoutY="9.0" prefHeight="29.0" prefWidth="72.0" style="-fx-padding: 0;" text="MaxHP" textFill="WHITE">
+                           <font>
+                              <Font name="Meiryo Bold Italic" size="18.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="maxHPminus" disable="true" layoutX="14.0" layoutY="32.0" mnemonicParsing="false" onAction="#onmaxHPminusClicked" style="-fx-border-width: 3; -fx-border-color: white;" stylesheets="@button.css">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <graphic>
+                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@minus.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="DEFAULT" />
+                                 </cursor>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="maxHPplus" disable="true" layoutX="245.0" layoutY="32.0" mnemonicParsing="false" onAction="#onmaxHPplusClicked" style="-fx-border-width: 3; -fx-border-color: white;" stylesheets="@button.css">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <graphic>
+                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@plus.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="DEFAULT" />
+                                 </cursor>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Label fx:id="maxHP" alignment="CENTER" layoutX="113.0" layoutY="37.0" prefHeight="29.0" prefWidth="72.0" text="0" textFill="WHITE">
+                           <font>
+                              <Font name="Meiryo" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="100.0" prefWidth="297.0">
+                     <children>
+                        <Label alignment="CENTER" layoutX="113.0" layoutY="9.0" prefHeight="29.0" prefWidth="72.0" style="-fx-padding: 0;" text="MaxSP" textFill="WHITE">
+                           <font>
+                              <Font name="Meiryo Bold Italic" size="18.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="maxSPminus" disable="true" layoutX="14.0" layoutY="32.0" mnemonicParsing="false" onAction="#onmaxSPminusClicked" style="-fx-border-width: 3; -fx-border-color: white;" stylesheets="@button.css">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <graphic>
+                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@minus.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="DEFAULT" />
+                                 </cursor>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="maxSPplus" disable="true" layoutX="245.0" layoutY="32.0" mnemonicParsing="false" onAction="#onmaxSPplusClicked" style="-fx-border-width: 3; -fx-border-color: white;" stylesheets="@button.css">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <graphic>
+                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@plus.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="DEFAULT" />
+                                 </cursor>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Label fx:id="maxSP" alignment="CENTER" layoutX="113.0" layoutY="37.0" prefHeight="29.0" prefWidth="72.0" text="0" textFill="WHITE">
+                           <font>
+                              <Font name="Meiryo" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="100.0" prefWidth="297.0">
+                     <children>
+                        <Label alignment="CENTER" layoutX="113.0" layoutY="9.0" prefHeight="29.0" prefWidth="72.0" style="-fx-padding: 0;" text="STR" textFill="WHITE">
+                           <font>
+                              <Font name="Meiryo Bold Italic" size="18.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="powerminus" disable="true" layoutX="14.0" layoutY="32.0" mnemonicParsing="false" onAction="#onpowerminusClicked" style="-fx-border-width: 3; -fx-border-color: white;" stylesheets="@button.css">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <graphic>
+                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@minus.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="DEFAULT" />
+                                 </cursor>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="powerplus" disable="true" layoutX="245.0" layoutY="32.0" mnemonicParsing="false" onAction="#onpowerplusClicked" style="-fx-border-width: 3; -fx-border-color: white;" stylesheets="@button.css">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <graphic>
+                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@plus.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="DEFAULT" />
+                                 </cursor>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Label fx:id="power" alignment="CENTER" layoutX="113.0" layoutY="37.0" prefHeight="29.0" prefWidth="72.0" text="0" textFill="WHITE">
+                           <font>
+                              <Font name="Meiryo" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </VBox>
+            <VBox prefHeight="300.0" prefWidth="300.0" style="-fx-border-image-width: 1; -fx-border-color: white;">
+               <children>
+                  <AnchorPane prefHeight="100.0" prefWidth="297.0">
+                     <children>
+                        <Label alignment="CENTER" layoutX="99.0" layoutY="8.0" prefHeight="29.0" prefWidth="100.0" style="-fx-padding: 0;" text="DEF" textFill="WHITE">
+                           <font>
+                              <Font name="Meiryo Bold Italic" size="18.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="defenseminus" disable="true" layoutX="14.0" layoutY="32.0" mnemonicParsing="false" onAction="#ondefenseminusClicked" style="-fx-border-width: 3; -fx-border-color: white;" stylesheets="@button.css">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <graphic>
+                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@minus.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="DEFAULT" />
+                                 </cursor>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="defenseplus" disable="true" layoutX="245.0" layoutY="32.0" mnemonicParsing="false" onAction="#ondefenseplusClicked" style="-fx-border-width: 3; -fx-border-color: white;" stylesheets="@button.css">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <graphic>
+                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@plus.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="DEFAULT" />
+                                 </cursor>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Label fx:id="defense" alignment="CENTER" layoutX="113.0" layoutY="37.0" prefHeight="29.0" prefWidth="72.0" text="0" textFill="WHITE">
+                           <font>
+                              <Font name="Meiryo" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="100.0" prefWidth="297.0">
+                     <children>
+                        <Label alignment="CENTER" layoutX="113.0" layoutY="9.0" prefHeight="29.0" prefWidth="72.0" style="-fx-padding: 0;" text="MND" textFill="WHITE">
+                           <font>
+                              <Font name="Meiryo Bold Italic" size="18.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="mindminus" disable="true" layoutX="14.0" layoutY="32.0" mnemonicParsing="false" onAction="#onmindminusClicked" style="-fx-border-width: 3; -fx-border-color: white;" stylesheets="@button.css">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <graphic>
+                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@minus.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="DEFAULT" />
+                                 </cursor>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="mindplus" disable="true" layoutX="245.0" layoutY="32.0" mnemonicParsing="false" onAction="#onmindplusClicked" style="-fx-border-width: 3; -fx-border-color: white;" stylesheets="@button.css">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <graphic>
+                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@plus.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="DEFAULT" />
+                                 </cursor>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Label fx:id="mind" alignment="CENTER" layoutX="113.0" layoutY="37.0" prefHeight="29.0" prefWidth="72.0" text="0" textFill="WHITE">
+                           <font>
+                              <Font name="Meiryo" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="100.0" prefWidth="297.0">
+                     <children>
+                        <Label alignment="CENTER" layoutX="113.0" layoutY="9.0" prefHeight="29.0" prefWidth="72.0" style="-fx-padding: 0;" text="SPD" textFill="WHITE">
+                           <font>
+                              <Font name="Meiryo Bold Italic" size="18.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="speedminus" disable="true" layoutX="14.0" layoutY="32.0" mnemonicParsing="false" onAction="#onspeedminusClicked" style="-fx-border-width: 3; -fx-border-color: white;" stylesheets="@button.css">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <graphic>
+                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@minus.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="DEFAULT" />
+                                 </cursor>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="speedplus" disable="true" layoutX="245.0" layoutY="32.0" mnemonicParsing="false" onAction="#onspeedplusClicked" style="-fx-border-width: 3; -fx-border-color: white;" stylesheets="@button.css">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <graphic>
+                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@plus.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="DEFAULT" />
+                                 </cursor>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Label fx:id="speed" alignment="CENTER" layoutX="113.0" layoutY="37.0" prefHeight="29.0" prefWidth="72.0" text="0" textFill="WHITE">
+                           <font>
+                              <Font name="Meiryo" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <Button fx:id="nextButton" layoutX="302.0" layoutY="439.0" mnemonicParsing="false" onAction="#onnextButton" text="次へ">
+         <font>
+            <Font name="Meiryo" size="14.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

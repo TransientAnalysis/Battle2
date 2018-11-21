@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.web.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MenuController">
+   <children>
+      <ImageView fitHeight="480.0" fitWidth="640.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@backblack.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="money" layoutX="20.0" layoutY="14.0" prefHeight="41.0" prefWidth="221.0" text="所持金:" textFill="YELLOW">
+         <font>
+            <Font name="Meiryo" size="14.0" />
+         </font>
+      </Label>
+      <VBox fx:id="menubox" layoutX="20.0" layoutY="64.0" prefHeight="250.0" prefWidth="150.0" style="-fx-border-width: 1; -fx-border-color: white;">
+         <children>
+            <AnchorPane prefHeight="50.0" prefWidth="150.0" style="-fx-border-width:0;">
+               <children>
+                  <Button fx:id="bouken" alignment="CENTER" mnemonicParsing="false" onAction="#adventureClicked" prefHeight="50.0" prefWidth="150.0" style="-fx-border-width: 1; -fx-border-color: white;" stylesheets="@button.css" text="冒険" textFill="WHITE">
+                     <font>
+                        <Font name="Meiryo" size="18.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="50.0" prefWidth="150.0" style="-fx-border-width:0;">
+               <children>
+                  <Button fx:id="mochimono" alignment="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" style="-fx-border-width: 1; -fx-border-color: white;" stylesheets="@button.css" text="持ち物" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="Meiryo" size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="50.0" prefWidth="150.0" style="-fx-border-width:0;">
+               <children>
+                  <Button fx:id="gousei" alignment="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" style="-fx-border-width: 1; -fx-border-color: white;" stylesheets="@button.css" text="合成" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="Meiryo" size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="50.0" prefWidth="150.0" style="-fx-border-width:0;">
+               <children>
+                  <Button fx:id="tensyoku" alignment="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" style="-fx-border-width: 1; -fx-border-color: white;" stylesheets="@button.css" text="転職" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="Meiryo" size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="50.0" prefWidth="150.0" style="-fx-border-width:0;">
+               <children>
+                  <Button fx:id="save" alignment="CENTER" disable="true" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" style="-fx-border-width: 1; -fx-border-color: white;" stylesheets="@button.css" text="セーブ" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="Meiryo" size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+         </children></VBox>
+      <ImageView fx:id="rightarrow" fitHeight="32.0" fitWidth="32.0" layoutX="177.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@rightarrow.png" />
+         </image>
+      </ImageView>
+      <HBox fx:id="secondbox" layoutX="231.0" layoutY="64.0" style="-fx-border-width: 1; -fx-border-color: white;" visible="false">
+         <children>
+            <ScrollPane hbarPolicy="NEVER" layoutX="233.0" layoutY="65.0" minWidth="200.0" prefHeight="250.0" prefWidth="200.0" style="-fx-border-width: 1; -fx-border-color: white;">
+               <content>
+                  <ListView fx:id="listview" fixedCellSize="25.0" prefHeight="243.0" prefWidth="179.0" style="-fx-background-color: RGBa(0,0,0,0); -fx-border-color: black;" />
+               </content>
+            </ScrollPane>
+            <AnchorPane prefHeight="250.0" prefWidth="187.0" style="-fx-border-width: 1; -fx-border-color: white;">
+               <children>
+                  <Label fx:id="minititle" alignment="CENTER" layoutX="14.0" layoutY="3.0" prefHeight="18.0" prefWidth="159.0" text="ミニタイトル" textFill="WHITE">
+                     <font>
+                        <Font name="Meiryo Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="description" alignment="TOP_LEFT" layoutX="14.0" layoutY="33.0" prefHeight="210.0" prefWidth="159.0" text="説明" textFill="WHITE" wrapText="true">
+                     <font>
+                        <Font name="Meiryo" size="14.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="go" disable="true" layoutX="41.0" layoutY="187.0" mnemonicParsing="false" onAction="#goClicked" prefHeight="50.0" prefWidth="100.0" style="-fx-border-width: 3; -fx-border-color: white;" stylesheets="@button.css" visible="false">
+                     <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@go.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+      <HBox layoutX="20.0" layoutY="320.0" prefHeight="150.0" prefWidth="600.0" style="-fx-border-width: 1; -fx-border-color: white;">
+         <children>
+            <Button fx:id="character1" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" stylesheets="@textbutton.css">
+               <graphic>
+                  <AnchorPane prefHeight="135.0" prefWidth="166.0" style="-fx-border-width: 1; -fx-border-color: white;">
+                     <children>
+                        <Label fx:id="name1" alignment="CENTER" layoutY="3.0" prefHeight="23.0" prefWidth="100.0" text="ああああ" textFill="WHITE">
+                           <font>
+                              <Font name="Meiryo Italic" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="LV1" layoutX="95.0" layoutY="3.0" prefHeight="23.0" prefWidth="49.0" text="LV.999" textFill="WHITE">
+                           <font>
+                              <Font name="Meiryo Italic" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="30.0" text="HP" textFill="WHITE">
+                           <font>
+                              <Font name="Meiryo" size="14.0" />
+                           </font>
+                        </Label>
+                        <ProgressBar fx:id="HPBar1" layoutX="45.0" layoutY="30.0" prefHeight="18.0" prefWidth="100.0" progress="0.5" styleClass="HPBar" stylesheets="@progress.css" />
+                        <Label layoutX="10.0" layoutY="55.0" text="SP" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <ProgressBar id="HPBar" fx:id="SPBar1" layoutX="45.0" layoutY="55.0" prefHeight="18.0" prefWidth="100.0" progress="0.5" styleClass="SPBar" stylesheets="@progress.css" />
+                        <Label layoutX="10.0" layoutY="80.0" text="EXP" textFill="WHITE">
+                           <font>
+                              <Font name="Meiryo" size="14.0" />
+                           </font>
+                        </Label>
+                        <ProgressBar id="HPBar" fx:id="EXPBar1" layoutX="45.0" layoutY="80.0" prefHeight="18.0" prefWidth="100.0" progress="0.5" styleClass="EXPBar" stylesheets="@progress.css" />
+                        <Label fx:id="job1" alignment="CENTER" layoutX="11.0" layoutY="107.0" prefHeight="27.0" prefWidth="131.0" text="職業" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="character2" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" stylesheets="@button.css">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <graphic>
+                  <AnchorPane prefHeight="100.0" prefWidth="150.0" style="-fx-border-width: 1; -fx-border-color: white;">
+                     <children>
+                        <Label fx:id="name2" alignment="CENTER" layoutY="3.0" prefHeight="23.0" prefWidth="100.0" text="いいいい" textFill="WHITE">
+                           <font>
+                              <Font name="Meiryo Italic" size="14.0" />
+                           </font>
+                        </Label>
+                        <ProgressBar fx:id="HPBar2" layoutX="45.0" layoutY="30.0" prefHeight="18.0" prefWidth="100.0" progress="1.0" styleClass="HPBar" stylesheets="@progress.css" />
+                        <Label layoutX="10.0" layoutY="30.0" text="HP" textFill="WHITE">
+                           <font>
+                              <Font name="Meiryo" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="55.0" text="SP" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <ProgressBar id="HPBar" fx:id="SPBar2" layoutX="45.0" layoutY="55.0" prefHeight="18.0" prefWidth="100.0" progress="1.0" styleClass="SPBar" stylesheets="@progress.css" />
+                        <Label layoutX="10.0" layoutY="80.0" text="EXP" textFill="WHITE">
+                           <font>
+                              <Font name="Meiryo" size="14.0" />
+                           </font>
+                        </Label>
+                        <ProgressBar id="HPBar" fx:id="EXPBar2" layoutX="45.0" layoutY="80.0" prefHeight="18.0" prefWidth="100.0" progress="1.0" styleClass="EXPBar" stylesheets="@progress.css" />
+                        <Label fx:id="LV2" layoutX="95.0" layoutY="3.0" prefHeight="23.0" prefWidth="49.0" text="LV.999" textFill="WHITE">
+                           <font>
+                              <Font name="Meiryo Italic" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="job2" alignment="CENTER" layoutX="11.0" layoutY="107.0" prefHeight="27.0" prefWidth="131.0" text="職業" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </graphic>
+            </Button>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

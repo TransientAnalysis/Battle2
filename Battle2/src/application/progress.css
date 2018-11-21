@@ -1,0 +1,11 @@
+.HPBar .bar{
+-fx-accent: rgb(0,255,0);
+}
+
+.SPBar .bar{
+-fx-accent: rgb(0,150,255);
+}
+
+.EXPBar .bar{
+-fx-accent: rgb(200,200,0);
+}
