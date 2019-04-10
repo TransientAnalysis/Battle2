@@ -1,31 +1,29 @@
 package application;
 
-import java.net.URL;
-import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ResourceBundle;
 
-import javax.imageio.ImageIO;
-
 import javafx.collections.FXCollections;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
-import javafx.fxml.*;
-import javafx.scene.*;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Tooltip;
-import javafx.scene.image.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class MenuController implements Initializable{
+public class MenuController extends Controller implements Initializable{
 
 	@FXML
-	private ImageView background,rightarrow;
+	private ImageView rightarrow;
 	@FXML
 	private Button bouken,mochimono,gousei,tensyoku,save,go,character1,character2;
 	@FXML
@@ -76,6 +74,9 @@ public class MenuController implements Initializable{
 		job2.setText(Game.actors.get(1).getjob().getName());
 		job2.setTooltip(new Tooltip(Game.actors.get(0).getjob().getComment()));
 
+		rightarrow.setImage(readImage("rightarrow.png"));
+		go.setGraphic(new ImageView(readImage("go.png")));
+
 		flagsReset();
 
 	}
@@ -122,18 +123,35 @@ public class MenuController implements Initializable{
 				Game.Distance=1;
 
 				Main.prevScene=Main.stage.getScene();
-				Main.root = (AnchorPane)FXMLLoader.load(getClass().getResource("Map.fxml"));
-				Scene map=new Scene(Main.root,640,480);
-				map.getStylesheets().add(getClass().getResource("./application.css").toExternalForm());
+				AnchorPane pane = (AnchorPane)FXMLLoader.load(getClass().getResource("Map.fxml"));
+				Scene map=new Scene(pane, 640, 480);
 				Main.stage.setScene(map);
 				Main.stage.show();
-				WritableImage snapshot = map.snapshot(null);
-				ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "png", new File("./map.png"));
 			} catch (IOException e2) {
 				e2.printStackTrace();
 			}
 		}
 
+	}
+	
+	@FXML
+	private void inventoryClicked(ActionEvent e) {
+		System.out.println("もちもの");
+	}
+	
+	@FXML
+	private void alchemyClicked(ActionEvent e) {
+		System.out.println("ごーせー");
+	}
+	
+	@FXML
+	private void jobClicked(ActionEvent e) {
+		System.out.println("じょぶちぇん");
+	}
+	
+	@FXML
+	private void saveClicked(ActionEvent e) {
+		System.out.println("せーぶ");
 	}
 
 	private void flagsReset(){

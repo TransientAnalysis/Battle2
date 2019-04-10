@@ -1,6 +1,5 @@
 package application;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -8,9 +7,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import javax.imageio.ImageIO;
-
-import javafx.embed.swing.SwingFXUtils;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,255 +19,197 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.image.WritableImage;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 
-public class StatusAssignmentController implements Initializable{
+public class StatusAssignmentController extends Controller implements Initializable{
 	@FXML
 	private Label actorName,BP;
 	@FXML
 	private Label maxHP,maxSP,power,defense,mind,speed;
 	@FXML
-	private Button maxHPminus,maxHPplus,maxSPminus,maxSPplus,powerminus,powerplus,defenseminus,defenseplus,mindminus,mindplus,speedminus,speedplus;
+	private HBox hbox;
+	@FXML
+	private Button left,right,maxHPminus,maxHPplus,maxSPminus,maxSPplus,powerminus,powerplus,defenseminus,defenseplus,mindminus,mindplus,speedminus,speedplus;
 
-
-	//private List<Button> minusbuttons=new ArrayList<Button>();
+	private int selectedCharacter=0;
 	private List<Button> plusbuttons=new ArrayList<Button>();
+	private List<Button> minusbuttons=new ArrayList<Button>();
+	private List<List<IntegerProperty>> statuses=new ArrayList<List<IntegerProperty>>();
+	private List<Label> labels=new ArrayList<Label>();
+	int[] statusnum= {0, 2, 4, 5, 6, 7};
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources){
+		left.setGraphic(new ImageView(readImage("leftarrow.png")));
+		right.setGraphic(new ImageView(readImage("rightarrow.png")));
+		Image minus=readImage("minus.png");
+		Image plus=readImage("plus.png");
+		maxHPminus.setGraphic(new ImageView(minus));
+		maxHPplus.setGraphic(new ImageView(plus));
+		maxSPminus.setGraphic(new ImageView(minus));
+		maxSPplus.setGraphic(new ImageView(plus));
+		powerminus.setGraphic(new ImageView(minus));
+		powerplus.setGraphic(new ImageView(plus));
+		defenseminus.setGraphic(new ImageView(minus));
+		defenseplus.setGraphic(new ImageView(plus));
+		mindminus.setGraphic(new ImageView(minus));
+		mindplus.setGraphic(new ImageView(plus));
+		speedminus.setGraphic(new ImageView(minus));
+		speedplus.setGraphic(new ImageView(plus));
 
-		//System.out.println(actorName.getText());
-		actorName.setText(String.valueOf(Game.actors.get(0).getName()));
-		BP.setText("残り"+Game.actors.get(0).getBP()+"ポイント");
-		maxHP.setText(String.valueOf(Game.actors.get(0).getanystatus(0)));
-		maxSP.setText(String.valueOf(Game.actors.get(0).getanystatus(2)));
-		power.setText(String.valueOf(Game.actors.get(0).getanystatus(4)));
-		defense.setText(String.valueOf(Game.actors.get(0).getanystatus(5)));
-		mind.setText(String.valueOf(Game.actors.get(0).getanystatus(6)));
-		speed.setText(String.valueOf(Game.actors.get(0).getanystatus(7)));
+		minusbuttons=Arrays.asList(maxHPminus,maxSPminus,powerminus,defenseminus,mindminus,speedminus);
+		plusbuttons=Arrays.asList(maxHPplus, maxSPplus, powerplus, defenseplus, mindplus, speedplus);
+		
+		for(int i=0; i<Game.actors.size(); i++) {
+			statuses.add(new ArrayList<IntegerProperty>());
+			for(int j=0; j<statusnum.length; j++) {
+				statuses.get(i).add(new SimpleIntegerProperty(Game.actors.get(i).getanystatus(statusnum[j])));
+			}
+		}
+				
+		labels=Arrays.asList(maxHP, maxSP, power, defense, mind, speed);
+		for(int i=0; i<labels.size(); i++) {//各ラベルのテキストを表示中のステータスの数値にバインド
+			labels.get(i).textProperty().bind(statuses.get(selectedCharacter).get(i).asString());
+		}
+		
+		updateStatus();
+		
+	}
+	
+	private void updateStatus() {//ラベルの各ステータスを更新
+		actorName.setText(String.valueOf(Game.actors.get(selectedCharacter).getName()));
+		BP.setText("残り"+Game.actors.get(selectedCharacter).getBP()+"ポイント");
 
-		//minusbuttons=Arrays.asList(maxHPminus,maxSPminus,powerminus,defenseminus,mindminus,speedminus);
-		plusbuttons=Arrays.asList(maxHPplus,maxSPplus,powerplus,defenseplus,mindplus,speedplus);
-
-		if(Game.actors.get(0).getBP()>0){
-			plusbuttons.forEach(a->a.setDisable(false));
+		for(int i=0; i<labels.size(); i++) {//各ラベルのテキストを表示中のステータスの数値にバインド
+			labels.get(i).textProperty().bind(statuses.get(selectedCharacter).get(i).asString());
 		}
 
+		if(Game.actors.get(selectedCharacter).getBP()>0){
+			minusbuttons.forEach(a->a.setDisable(false));
+			plusbuttons.forEach(a->a.setDisable(false));
+		}
+		else {
+			plusbuttons.forEach(a->a.setDisable(true));
+		}
+		
+		for(int i=0; i<statusnum.length; i++) {
+			if(Integer.parseInt(labels.get(i).getText())==Game.actors.get(selectedCharacter).getanystatus(statusnum[i])){
+				minusbuttons.get(i).setDisable(true);
+			}
+			else {
+				minusbuttons.get(i).setDisable(false);
+			}
+		}	
+	}
+	
+	private void minusAnyStatus(int num) {
+		int textedValue=Integer.parseInt(labels.get(num).getText());
+		int nowBP=Game.actors.get(selectedCharacter).getBP();
+		
+		if(num==0) {
+			textedValue-=5;
+		}
+		else if(num==1) {
+			textedValue-=3;
+		}
+		else {
+			textedValue--;
+		}
+		nowBP++;
+		statuses.get(selectedCharacter).get(num).set(textedValue);
+		Game.actors.get(selectedCharacter).setBP(nowBP);
+		updateStatus();
+	}
+	
+	private void plusAnyStatus(int num) {
+		int textedValue=Integer.parseInt(labels.get(num).getText());
+		int nowBP=Game.actors.get(selectedCharacter).getBP();
+		
+		if(num==0) {
+			textedValue+=5;
+		}
+		else if(num==1) {
+			textedValue+=3;
+		}
+		else {
+			textedValue++;
+		}
+		nowBP--;
+		statuses.get(selectedCharacter).get(num).set(textedValue);
+		Game.actors.get(selectedCharacter).setBP(nowBP);
+		updateStatus();
+	}
 
+	@FXML
+	private void onLeftButtonClicked(ActionEvent e) {
+		right.setDisable(false);
+		selectedCharacter--;
+		if(selectedCharacter<1) {
+			left.setDisable(true);
+		}
+		updateStatus();
+	}
+
+	@FXML
+	private void onRightButtonClicked(ActionEvent e) {
+		left.setDisable(false);
+		selectedCharacter++;
+		if(selectedCharacter==Game.actors.size()-1) {
+			right.setDisable(true);
+		}
+		updateStatus();
 	}
 
 	@FXML
 	private void onmaxHPminusClicked(ActionEvent e){
-		int textedmaxHP=Integer.parseInt(maxHP.getText());
-		int nowBP=Game.actors.get(0).getBP();
-		if(textedmaxHP>Game.actors.get(0).getanystatus(0)){
-			textedmaxHP--;
-			nowBP++;
-			maxHP.setText(String.valueOf(textedmaxHP));
-			BP.setText("残り"+nowBP+"ポイント");
-			Game.actors.get(0).setBP(nowBP);
-			plusbuttons.forEach(a->a.setDisable(false));
-			//System.out.println(Game.actors.get(0).getanystatus(0)+"と"+textedmaxHP);
-			if(textedmaxHP==Game.actors.get(0).getanystatus(0)){
-				//System.out.println("awfhoafoahfaoiuf");
-				maxHPminus.setDisable(true);
-			}
-		}
+		minusAnyStatus(0);
 	}
 	@FXML
 	private void onmaxHPplusClicked(ActionEvent e){
-		int textedmaxHP=Integer.parseInt(maxHP.getText());
-		int nowBP=Game.actors.get(0).getBP();
-		if(nowBP>0){
-			textedmaxHP++;
-			nowBP--;
-			maxHP.setText(String.valueOf(textedmaxHP));
-			BP.setText("残り"+nowBP+"ポイント");
-			Game.actors.get(0).setBP(nowBP);
-			maxHPminus.setDisable(false);
-			if(nowBP==0){
-				plusbuttons.forEach(a->a.setDisable(true));
-			}
-			else{
-				maxHPminus.setDisable(false);
-			}
-		}
+		plusAnyStatus(0);
 	}
 	@FXML
 	private void onmaxSPminusClicked(ActionEvent e){
-		int textedmaxSP=Integer.parseInt(maxSP.getText());
-		int nowBP=Game.actors.get(0).getBP();
-		if(textedmaxSP>Game.actors.get(0).getanystatus(2)){
-			textedmaxSP--;
-			nowBP++;
-			maxSP.setText(String.valueOf(textedmaxSP));
-			BP.setText("残り:"+nowBP+"ポイント");
-			Game.actors.get(0).setBP(nowBP);
-			plusbuttons.forEach(a->a.setDisable(false));
-			if(textedmaxSP==Game.actors.get(0).getanystatus(2)){
-				maxSPminus.setDisable(true);
-			}
-		}
+		minusAnyStatus(1);
 	}
 	@FXML
 	private void onmaxSPplusClicked(ActionEvent e){
-		int textedmaxSP=Integer.parseInt(maxSP.getText());
-		int nowBP=Game.actors.get(0).getBP();
-		if(nowBP>0){
-			textedmaxSP++;
-			nowBP--;
-			maxSP.setText(String.valueOf(textedmaxSP));
-			BP.setText("残り"+nowBP+"ポイント");
-			Game.actors.get(0).setBP(nowBP);
-			maxSPminus.setDisable(false);
-			if(nowBP==0){
-				plusbuttons.forEach(a->a.setDisable(true));
-			}
-			else{
-				maxSPminus.setDisable(false);
-			}
-		}
+		plusAnyStatus(1);
 	}
 	@FXML
 	private void onpowerminusClicked(ActionEvent e){
-		int textedpower=Integer.parseInt(power.getText());
-		int nowBP=Game.actors.get(0).getBP();
-		if(textedpower>Game.actors.get(0).getanystatus(4)){
-			textedpower--;
-			nowBP++;
-			power.setText(String.valueOf(textedpower));
-			BP.setText("残り"+nowBP+"ポイント");
-			Game.actors.get(0).setBP(nowBP);
-			plusbuttons.forEach(a->a.setDisable(false));
-			if(textedpower==Game.actors.get(0).getanystatus(4)){
-				powerminus.setDisable(true);
-			}
-		}
+		minusAnyStatus(2);
 	}
 	@FXML
 	private void onpowerplusClicked(ActionEvent e){
-		int textedpower=Integer.parseInt(power.getText());
-		int nowBP=Game.actors.get(0).getBP();
-		if(nowBP>0){
-			textedpower++;
-			nowBP--;
-			power.setText(String.valueOf(textedpower));
-			BP.setText("残り"+nowBP+"ポイント");
-			Game.actors.get(0).setBP(nowBP);
-			powerminus.setDisable(false);
-			if(nowBP==0){
-				plusbuttons.forEach(a->a.setDisable(true));
-			}
-			else{
-				powerminus.setDisable(false);
-			}
-		}
+		plusAnyStatus(2);
 	}
 	@FXML
 	private void ondefenseminusClicked(ActionEvent e){
-		int texteddefense=Integer.parseInt(defense.getText());
-		int nowBP=Game.actors.get(0).getBP();
-		if(texteddefense>Game.actors.get(0).getanystatus(5)){
-			texteddefense--;
-			nowBP++;
-			defense.setText(String.valueOf(texteddefense));
-			BP.setText("残り"+nowBP+"ポイント");
-			Game.actors.get(0).setBP(nowBP);
-			plusbuttons.forEach(a->a.setDisable(false));
-			if(texteddefense==Game.actors.get(0).getanystatus(5)){
-				defenseminus.setDisable(true);
-			}
-		}
+		minusAnyStatus(3);
 	}
 	@FXML
 	private void ondefenseplusClicked(ActionEvent e){
-		int texteddefense=Integer.parseInt(defense.getText());
-		int nowBP=Game.actors.get(0).getBP();
-		if(nowBP>0){
-			texteddefense++;
-			nowBP--;
-			defense.setText(String.valueOf(texteddefense));
-			BP.setText("残り"+nowBP+"ポイント");
-			Game.actors.get(0).setBP(nowBP);
-			defenseminus.setDisable(false);
-			if(nowBP==0){
-				plusbuttons.forEach(a->a.setDisable(true));
-			}
-			else{
-				defenseminus.setDisable(false);
-			}
-		}
+		plusAnyStatus(3);
 	}
 	@FXML
 	private void onmindminusClicked(ActionEvent e){
-		int textedmind=Integer.parseInt(mind.getText());
-		int nowBP=Game.actors.get(0).getBP();
-		if(textedmind>Game.actors.get(0).getanystatus(6)){
-			textedmind--;
-			nowBP++;
-			mind.setText(String.valueOf(textedmind));
-			BP.setText("残り"+nowBP+"ポイント");
-			Game.actors.get(0).setBP(nowBP);
-			plusbuttons.forEach(a->a.setDisable(false));
-			if(textedmind==Game.actors.get(0).getanystatus(6)){
-				mindminus.setDisable(true);
-			}
-		}
+		minusAnyStatus(4);
 	}
 	@FXML
 	private void onmindplusClicked(ActionEvent e){
-		int textedmind=Integer.parseInt(mind.getText());
-		int nowBP=Game.actors.get(0).getBP();
-		if(nowBP>0){
-			textedmind++;
-			nowBP--;
-			mind.setText(String.valueOf(textedmind));
-			BP.setText("残り"+nowBP+"ポイント");
-			Game.actors.get(0).setBP(nowBP);
-			mindminus.setDisable(false);
-			if(nowBP==0){
-				plusbuttons.forEach(a->a.setDisable(true));
-			}
-			else{
-				mindminus.setDisable(false);
-			}
-		}
+		plusAnyStatus(4);
 	}
 	@FXML
 	private void onspeedminusClicked(ActionEvent e){
-		int textedspeed=Integer.parseInt(speed.getText());
-		int nowBP=Game.actors.get(0).getBP();
-		if(textedspeed>Game.actors.get(0).getanystatus(7)){
-			textedspeed--;
-			nowBP++;
-			speed.setText(String.valueOf(textedspeed));
-			BP.setText("残り"+nowBP+"ポイント");
-			Game.actors.get(0).setBP(nowBP);
-			plusbuttons.forEach(a->a.setDisable(false));
-			if(textedspeed==Game.actors.get(0).getanystatus(7)){
-				speedminus.setDisable(true);
-			}
-		}
+		minusAnyStatus(5);
 	}
 	@FXML
 	private void onspeedplusClicked(ActionEvent e){
-		int textedspeed=Integer.parseInt(speed.getText());
-		int nowBP=Game.actors.get(0).getBP();
-		if(nowBP>0){
-			textedspeed++;
-			nowBP--;
-			speed.setText(String.valueOf(textedspeed));
-			BP.setText("残り"+nowBP+"ポイント");
-			Game.actors.get(0).setBP(nowBP);
-			speedminus.setDisable(false);
-			if(nowBP==0){
-				plusbuttons.forEach(a->a.setDisable(true));
-			}
-			else{
-				speedplus.setDisable(false);
-			}
-		}
+		plusAnyStatus(5);
 	}
 	@FXML
 	private void onnextButton(ActionEvent e){
@@ -280,27 +220,26 @@ public class StatusAssignmentController implements Initializable{
 		alt.setTitle("確認");
 		if(alt.showAndWait().get()==ButtonType.OK){
 			nextflag=true;
-
-			Game.actors.get(0).setanystatus(0,Integer.parseInt(maxHP.getText()));
-			Game.actors.get(0).setanystatus(1,Integer.parseInt(maxHP.getText()));
-			Game.actors.get(0).setanystatus(2,Integer.parseInt(maxSP.getText()));
-			Game.actors.get(0).setanystatus(3,Integer.parseInt(maxSP.getText()));
-			Game.actors.get(0).setanystatus(4,Integer.parseInt(power.getText()));
-			Game.actors.get(0).setanystatus(5,Integer.parseInt(defense.getText()));
-			Game.actors.get(0).setanystatus(6,Integer.parseInt(mind.getText()));
-			Game.actors.get(0).setanystatus(7,Integer.parseInt(speed.getText()));
+			
+			for(int i=0; i<Game.actors.size(); i++) {
+				Game.actors.get(i).setanystatus(0, statuses.get(i).get(0).get());
+				Game.actors.get(i).setanystatus(1, statuses.get(i).get(0).get());
+				Game.actors.get(i).setanystatus(2, statuses.get(i).get(1).get());
+				Game.actors.get(i).setanystatus(3, statuses.get(i).get(1).get());
+				Game.actors.get(i).setanystatus(4, statuses.get(i).get(2).get());
+				Game.actors.get(i).setanystatus(5, statuses.get(i).get(3).get());
+				Game.actors.get(i).setanystatus(6, statuses.get(i).get(4).get());
+				Game.actors.get(i).setanystatus(7, statuses.get(i).get(5).get());
+			}
 		}
 
 		if(nextflag==true){
 			Main.stage.setTitle("めにゅ～");
 			try {
-				Main.root = (AnchorPane)FXMLLoader.load(getClass().getResource("Menu.fxml"));
-				Scene menu=new Scene(Main.root,640,480);
-				menu.getStylesheets().add(getClass().getResource("./application.css").toExternalForm());
+				AnchorPane pane = (AnchorPane)FXMLLoader.load(getClass().getResource("Menu.fxml"));
+				Scene menu=new Scene(pane, 640, 480);
 				Main.stage.setScene(menu);
 				Main.stage.show();
-				WritableImage snapshot = menu.snapshot(null);
-				ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "png", new File("./menu.png"));
 			} catch (IOException e2) {
 				e2.printStackTrace();
 			}

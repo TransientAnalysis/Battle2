@@ -8,25 +8,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.TitleController">
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.TitleController">
    <children>
-      <ImageView fitHeight="480.0" fitWidth="640.0" pickOnBounds="true" smooth="false">
+      <ImageView fx:id="title" fitHeight="480.0" fitWidth="640.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@title.png" />
-         </image>
-         <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor>
-      </ImageView>
-      <Button ellipsisString="" graphicTextGap="0.0" layoutX="204.0" layoutY="182.0" mnemonicParsing="false" onAction="#startClicked" prefHeight="50.0" prefWidth="200.0" stylesheets="@button.css" textOverrun="CLIP">
+            <Image url="@resources/title.png" />
+         </image></ImageView>
+      <Button fx:id="startButton" ellipsisString="" graphicTextGap="0.0" layoutX="204.0" layoutY="182.0" mnemonicParsing="false" onAction="#startClicked" prefHeight="50.0" prefWidth="200.0" stylesheets="@resources/button.css" textOverrun="CLIP">
          <font>
             <Font name="Meiryo" size="12.0" />
          </font>
          <graphic>
-            <ImageView fitHeight="50.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@start.png" />
-               </image>
+            <ImageView fx:id="startImage" fitHeight="50.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <effect>
                   <DropShadow color="WHITE" offsetX="3.0" offsetY="3.0" />
                </effect>
@@ -39,12 +32,9 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button layoutX="204.0" layoutY="301.0" mnemonicParsing="false" onAction="#continueClicked" prefHeight="50.0" prefWidth="200.0" stylesheets="@button.css">
+      <Button fx:id="continueButton" layoutX="204.0" layoutY="301.0" mnemonicParsing="false" onAction="#continueClicked" prefHeight="50.0" prefWidth="200.0" stylesheets="@resources/button.css">
          <graphic>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@continue.png" />
-               </image>
+            <ImageView fx:id="continueImage" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <effect>
                   <DropShadow color="WHITE" offsetX="3.0" offsetY="3.0" />
                </effect>

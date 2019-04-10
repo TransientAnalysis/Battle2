@@ -1,22 +1,28 @@
 package application;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javax.imageio.ImageIO;
-
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.image.*;
-import javafx.scene.layout.AnchorPane;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
-import javafx.fxml.*;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Tooltip;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 
-public class CharacterMakingController implements Initializable{
+public class CharacterMakingController extends Controller implements Initializable{
 
 	private boolean nextflag=false;
 
@@ -27,7 +33,9 @@ public class CharacterMakingController implements Initializable{
 	@FXML
 	private ComboBox<String> Character1,Character2;
 	@FXML
-	private ImageView bodyImage1,bodyImage2;
+	private ImageView bodyImage1;
+	@FXML
+	private ImageView bodyImage2;
 	@FXML
 	private ToggleGroup group1,group2;
 	@FXML
@@ -69,11 +77,11 @@ public class CharacterMakingController implements Initializable{
 			//System.out.println(newValue);
 			switch(newValue.intValue()){
 				case 0:
-					bodyImage1.setImage(new Image("file:male1.png"));
+					bodyImage1.setImage(readImage("male1.png"));
 					Game.actors.get(0).setgender(0);
 					break;
 				case 1:
-					bodyImage1.setImage(new Image("file:female1.png"));
+					bodyImage1.setImage(readImage("female1.png"));
 					Game.actors.get(0).setgender(1);
 					break;
 			}
@@ -82,16 +90,15 @@ public class CharacterMakingController implements Initializable{
 			//System.out.println(newValue);
 			switch(newValue.intValue()){
 				case 0:
-					bodyImage2.setImage(new Image("file:male2.png"));
+					bodyImage2.setImage(readImage("male2.png"));
 					Game.actors.get(1).setgender(0);
 					break;
 				case 1:
-					bodyImage2.setImage(new Image("file:female2.png"));
+					bodyImage2.setImage(readImage("female2.png"));
 					Game.actors.get(1).setgender(1);
 					break;
 			}
 		});
-
 
 		job1_1.setTooltip(new Tooltip(Game.jobs.get(1).getComment()));//剣士
 		job1_2.setTooltip(new Tooltip(Game.jobs.get(4).getComment()));//魔術士
@@ -111,7 +118,6 @@ public class CharacterMakingController implements Initializable{
 			else if(job1_3.isSelected()==true){
 				Game.actors.get(0).setjob(Game.jobs.get(7));
 			}
-			//System.out.println(Game.actors.get(0).getjob().getName());
 		});
 		group2.selectedToggleProperty().addListener((r,oldValue,newValue)->{
 			if(job2_1.isSelected()==true){
@@ -123,7 +129,6 @@ public class CharacterMakingController implements Initializable{
 			else if(job2_3.isSelected()==true){
 				Game.actors.get(1).setjob(Game.jobs.get(21));
 			}
-			//System.out.println(Game.actors.get(1).getjob().getName());
 		});
 		//Game.actors.get(0).setjob(Game.jobs.get(0));
 		//Game.actors.get(1).setjob(Game.jobs.get(0));
@@ -135,13 +140,8 @@ public class CharacterMakingController implements Initializable{
 		*/
 		System.out.println("アクションリスナーセット完了");
 
-
-		Image img=null;
-		//imageを張り替えるときは、『.project』と同じディレクトリを参照
-		img=new Image("file:select.png");//http://totomo.net/11260-javafxcombochoice.htm
-
-		bodyImage1.setImage(img);
-		bodyImage2.setImage(img);
+		bodyImage1.setImage(readImage("select.png"));
+		bodyImage2.setImage(readImage("select.png"));
 
 		nextButton.setTooltip(new Tooltip("次に進みます"));
 	}
@@ -195,13 +195,10 @@ public class CharacterMakingController implements Initializable{
 		if(nextflag==true){
 			Main.stage.setTitle("のうりょくちふりわけ");
 			try {
-				Main.root = (AnchorPane)FXMLLoader.load(getClass().getResource("StatusAssignment.fxml"));
-				Scene assign=new Scene(Main.root,640,480);
-				assign.getStylesheets().add(getClass().getResource("./application.css").toExternalForm());
+				AnchorPane pane = (AnchorPane)FXMLLoader.load(getClass().getResource("StatusAssignment.fxml"));
+				Scene assign=new Scene(pane,640,480);
 				Main.stage.setScene(assign);
 				Main.stage.show();
-				WritableImage snapshot = assign.snapshot(null);
-				ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "png", new File("./assignment.png"));
 			} catch (IOException e2) {
 				e2.printStackTrace();
 			}

@@ -6,18 +6,12 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.CharacterMakingController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.CharacterMakingController">
    <children>
-      <ImageView fitHeight="480.0" fitWidth="640.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@backblack.png" />
-         </image>
-      </ImageView>
       <Label fx:id="sub" alignment="CENTER" layoutX="129.0" layoutY="29.0" prefHeight="45.0" prefWidth="383.0" text="～キャラクターメイキング～" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
          <font>
             <Font name="Meiryo" size="22.0" />
@@ -63,16 +57,8 @@
             <Font name="Meiryo" size="14.0" />
          </font>
       </RadioButton>
-      <ImageView fx:id="bodyImage1" fitHeight="160.0" fitWidth="160.0" layoutX="124.0" layoutY="269.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@male1.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="bodyImage2" layoutX="358.0" layoutY="269.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@female2.png" />
-         </image>
-      </ImageView>
+      <ImageView fx:id="bodyImage1" fitHeight="160.0" fitWidth="160.0" layoutX="124.0" layoutY="269.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="bodyImage2" layoutX="358.0" layoutY="269.0" pickOnBounds="true" preserveRatio="true" />
       <Button fx:id="nextButton" layoutX="292.0" layoutY="429.0" mnemonicParsing="false" onAction="#onnextButton" text="次へ">
          <font>
             <Font name="Meiryo" size="14.0" />

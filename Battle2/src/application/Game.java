@@ -13,7 +13,7 @@ public class Game {
 
 	public static TreeMap<Integer,Job> jobs=new TreeMap<Integer,Job>();
 
-	public static List<Battler> actors=new ArrayList<Battler>(4);
+	public static List<Battler> actors=new ArrayList<Battler>(2);
 	public static List<Battler> enemies=new ArrayList<Battler>();
 	public static List<Battler> battlers=new ArrayList<Battler>();
 
